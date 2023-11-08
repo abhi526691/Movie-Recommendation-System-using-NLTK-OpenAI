@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie Recommendations</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    line-height: 1.6;
+  }
+  .container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+  }
+  header {
+    background: #333;
+    color: #fff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #50b3a2 3px solid;
+  }
+  header a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+  }
+  header ul {
+    padding: 0;
+    list-style: none;
+  }
+  header li {
+    display: inline;
+    padding: 0 20px 0 20px;
+  }
+  header #branding {
+    float: left;
+  }
+  header #branding h1 {
+    margin: 0;
+  }
+  header nav {
+    float: right;
+    margin-top: 10px;
+  }
+  header .highlight, header .current a {
+    color: #50b3a2;
+    font-weight: bold;
+  }
+  header a:hover {
+    color: #50b3a2;
+    font-weight: bold;
+  }
+  .recommendations {
+    background: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  input[type="text"] {
+    padding: 10px;
+    width: 70%;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  button {
+    padding: 10px 20px;
+    border: 0;
+    background-color: #50b3a2;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #333;
+  }
+  #movie-list .movie {
+    background: #fff;
+    color: #333;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+
+<script>
+  // When the DOM is fully loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    // Find the form element
+    const form = document.querySelector('form');
+
+    // Add an event listener for the 'submit' event
+    form.addEventListener('submit', function(event) {
+      // Prevent the default form submission
+      event.preventDefault();
+
+      // Get the prompt value from the input field
+      const prompt = document.querySelector('input[name="prompt"]').value;
+
+      // Make a request to the Django API for recommendations
+      fetch(`http://127.0.0.1:8000/api/recommend/?prompt=${encodeURIComponent(prompt)}`)
+        .then(response => response.json())
+        .then(data => {
+          // Get the movie-list container
+          const movieList = document.getElementById('movie-list');
+          // Clear the current movie list
+          movieList.innerHTML = '';
+
+          // Loop through the recommendations and add them to the movie list
+          data.recommendations.forEach(movieTitle => {
+            const movieElement = document.createElement('div');
+            movieElement.classList.add('movie');
+            movieElement.textContent = movieTitle;
+            movieList.appendChild(movieElement);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching recommendations:', error);
+        });
+    });
+  });
+</script>
+
+
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div id="branding">
+        <h1>Movie Recommendations</h1>
+      </div>
+      <nav>
+        <ul>
+          <li class="current"><a href="#">Home</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <section class="recommendations">
+      <h2>Discover Your Next Favorite Movie</h2>
+      <form>
+        <input type="text" name="prompt" placeholder="Enter keywords (e.g., 'space adventure')...">
+        <button type="submit">Get Recommendations</button>
+      </form>
+    </section>
+    <br>
+    <section id="movie-list">
+      <!-- Movie recommendations will be displayed here -->
+    </section>
+  </div>
+</body>
+</html>
