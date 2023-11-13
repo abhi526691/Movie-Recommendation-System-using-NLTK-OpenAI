@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,48 +95,47 @@
     margin-bottom: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+  #loader {
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+  }
 </style>
 
-
 <script>
-  // When the DOM is fully loaded
   document.addEventListener('DOMContentLoaded', function() {
-    // Find the form element
     const form = document.querySelector('form');
+    const loader = document.getElementById('loader'); // Get the loader element
 
-    // Add an event listener for the 'submit' event
     form.addEventListener('submit', function(event) {
-      // Prevent the default form submission
       event.preventDefault();
-
-      // Get the prompt value from the input field
       const prompt = document.querySelector('input[name="prompt"]').value;
 
-      // Make a request to the Django API for recommendations
+      // Show loader
+      loader.style.display = 'block';
+
       fetch(`http://127.0.0.1:8000/api/recommend/?prompt=${encodeURIComponent(prompt)}`)
         .then(response => response.json())
         .then(data => {
-          // Get the movie-list container
           const movieList = document.getElementById('movie-list');
-          // Clear the current movie list
           movieList.innerHTML = '';
-
-          // Loop through the recommendations and add them to the movie list
           data.recommendations.forEach(movieTitle => {
             const movieElement = document.createElement('div');
             movieElement.classList.add('movie');
             movieElement.textContent = movieTitle;
             movieList.appendChild(movieElement);
           });
+          // Hide loader after data is processed
+          loader.style.display = 'none';
         })
         .catch(error => {
           console.error('Error fetching recommendations:', error);
+          // Hide loader if there's an error
+          loader.style.display = 'none';
         });
     });
   });
 </script>
-
-
 </head>
 <body>
   <header>
@@ -160,6 +158,7 @@
         <input type="text" name="prompt" placeholder="Enter keywords (e.g., 'space adventure')...">
         <button type="submit">Get Recommendations</button>
       </form>
+      <div id="loader" style="display: none;">Loading...</div>
     </section>
     <br>
     <section id="movie-list">
