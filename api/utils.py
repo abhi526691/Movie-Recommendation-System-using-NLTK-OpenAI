@@ -21,6 +21,7 @@ class SupportingFunc:
         
         sorted_movies = df_movies.sort_values(by='similarity', ascending=False)
         return sorted_movies.head(top_n)
+    
 
 
 
