@@ -6,22 +6,21 @@ from django.shortcuts import render
 from .utils import SupportingFunc
 import pandas as pd
 
-# Load the movies DataFrame once and reuse it
-try:
-    df_movies = pd.read_csv('csv/movies_with_embedding.csv')
-except Exception as e:
-    df_movies = pd.DataFrame()
-    print(f"Error loading movies dataset: {e}")
-
-# Instantiate SupportingFunc
-support_func = SupportingFunc()
-
 # View to serve the HTML page
 def recommendations_page(request):
     return render(request, 'index.html')
 
 class MovieRecommendationView(APIView):
     def get(self, request, format=None):
+        # Load the movies DataFrame once and reuse it
+        try:
+            df_movies = pd.read_csv('csv/movies_with_embedding.csv')
+        except Exception as e:
+            df_movies = pd.DataFrame()
+            print(f"Error loading movies dataset: {e}")
+        print("Dhanush ")
+        # Instantiate SupportingFunc
+        support_func = SupportingFunc()
         prompt = request.query_params.get('prompt', None)
         if prompt is None:
             return Response({'error': 'No prompt provided'}, status=status.HTTP_400_BAD_REQUEST)

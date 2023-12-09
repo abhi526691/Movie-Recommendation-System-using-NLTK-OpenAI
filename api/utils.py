@@ -7,7 +7,7 @@ from openai.embeddings_utils import cosine_similarity, get_embedding
 
 class SupportingFunc:
     def __init__(self):
-        openai.api_key = ''
+        openai.api_key = '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'
 
     def find_top_movies(self, query, df_movies, top_n=5):
         product_embedding = get_embedding(
