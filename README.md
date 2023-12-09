@@ -59,6 +59,7 @@ Follow these instructions to get this project up and running on your local machi
 - [Django](https://www.djangoproject.com/) - The web framework used
 - [NLTK](https://www.nltk.org/) - Model framework
 - [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) - Frontend framework
+- [OpenAI](https://platform.openai.com/docs/guides/embeddings) - OpenAI Embedding
 
 
 
