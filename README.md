@@ -2,7 +2,7 @@
 
 Movie Recommendation Systsem is a web application built with Django that allows users to perform [Movie Search based on their requirement].
 
-![Sample Output](https://github.com/abhi526691/Movie-Recommendation-System-using-NLTK/blob/first-integrated-app/Screenshot%20(10).png)
+![Sample Output](https://github.com/abhi526691/Movie-Recommendation-System-using-NLTK-OpenAI/blob/bingebot-with-openai-approach/WhatsApp%20Video%202023-12-08%20at%209.58.49%20PM.mp4)
 
 
 ## Features
