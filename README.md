@@ -8,12 +8,18 @@ https://github.com/abhi526691/Movie-Recommendation-System-using-NLTK-OpenAI/asse
 
 )
 
+## Other iterations of this model
+- We tried TF-IDF vectorizer to get the vector of concatenated string to apply cosine similarity. However, this turned out to be inaccurate since the output was gave us random movies which did not provide the user requirements
+- Therefore, we decided to move on to a different approach. We deicded to use [OpenAI Embeddings](https://platform.openai.com/docs/guides/embeddings) to embed our concatenated features as well as the user query to apply cosine similarity and provide an output. This was a more accurate result. However, the constraint with using OpenAI Embeddings was that it took a long time to process and provide an output. The reason for this could be due to the fact that OpenAI's Ada model creates a list of 2048 floating point for each concatenated feature.
+
+## Further changes in the future
 
 ## Features
 
-- First feature
-- Second feature
-- [Other features of the app]
+- Recommends movies based on embedded features
+- Applies cosine similarity to provide an output based on the query asked by the user
+- Using Content-Based Filtering to provide a Top 5 movie list to the users based on their preference
+- [PPT](https://azureloyalistcollege-my.sharepoint.com/:p:/g/personal/baldeepsingharora_loyalistcollege_com/EWxViRIabrVPvr6d3C6HXyUBGrEU82lyQY389OryytQ2yA?e=V2419i)
 
 ## Quick Start
 
